@@ -19,7 +19,7 @@ class DeepResearcherAgent(Workflow):
 
     searcher: Agent = Agent(
         tools=[DuckDuckGoTools()],
-        model=OpenAIChat(id ="gpt-4o"),
+        model=OpenAIChat(id ="gpt-4o-mini"),
         show_tool_calls=True,
         markdown=True,
         description=(
@@ -63,7 +63,7 @@ class DeepResearcherAgent(Workflow):
 
     # Writer: Produces a final, polished report
     writer: Agent = Agent(
-        model=OpenAIChat(id ="gpt-4o"),
+        model=OpenAIChat(id ="gpt-4o-mini"),
         markdown=True,
         description=(
             "You are WriterBot-X, a professional technical writer. Your job is to craft "
