@@ -48,6 +48,7 @@ dependencies = [
     { name = "streamlit" },
     { name = "uvicorn", extra = ["standard"] },
     { name = "yfinance" },
+    { name = "youtube-transcript-api" },
 ]
 
 [package.metadata]
@@ -70,6 +71,7 @@ requires-dist = [
     { name = "streamlit", specifier = ">=1.48.0" },
     { name = "uvicorn", extras = ["standard"], specifier = ">=0.35.0" },
     { name = "yfinance", specifier = ">=0.2.65" },
+    { name = "youtube-transcript-api", specifier = ">=1.2.2" },
 ]
 
 [[package]]
@@ -480,6 +482,15 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/67/65/6c5c1b2acf2a902b340c9a0df5051a4af2384a952bc29407c4ab53c267eb/ddgs-9.5.2.tar.gz", hash = "sha256:1011cb0ad2329163c9f92b61231c654a8abe0bfdc9a3877dbf45bf41bf6a11ba", size = 32585, upload-time = "2025-08-05T21:11:51.478Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/ff/e2/8feccc47acfc1ada5e63d037aa5f345eb92503d851b0c5e461bf05fbdfa8/ddgs-9.5.2-py3-none-any.whl", hash = "sha256:3685246763426f6bca06db709dc4464db7940b8a418b56880f0ae41c3480e0c3", size = 36350, upload-time = "2025-08-05T21:11:50.177Z" },
+]
+
+[[package]]
+name = "defusedxml"
+version = "0.7.1"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/0f/d5/c66da9b79e5bdb124974bfe172b4daf3c984ebd9c2a06e2b8a4dc7331c72/defusedxml-0.7.1.tar.gz", hash = "sha256:1bb3032db185915b62d7c6209c5a8792be6a32ab2fedacc84e01b52c51aa3e69", size = 75520, upload-time = "2021-03-08T10:59:26.269Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/07/6c/aa3f2f849e01cb6a001cd8554a88d4c77c5c1a31c95bdf1cf9301e6d9ef4/defusedxml-0.7.1-py2.py3-none-any.whl", hash = "sha256:a352e7e428770286cc899e2542b6cdaedb2b4953ff269a210103ec58f6198a61", size = 25604, upload-time = "2021-03-08T10:59:24.45Z" },
 ]
 
 [[package]]
@@ -2555,6 +2566,19 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/a3/c1/2ef5acda45a71297f4be22e205359e0f93b0171f2b6ebdd681362e725686/yfinance-0.2.65.tar.gz", hash = "sha256:3d465e58c49be9d61f9862829de3e00bef6b623809f32f4efb5197b62fc60485", size = 128666, upload-time = "2025-07-06T16:20:12.769Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/c9/1e/631c80e0f97aef46eb73549b9b0f60d94057294e040740f4cad0cb1f48e4/yfinance-0.2.65-py2.py3-none-any.whl", hash = "sha256:7be13abb0d80a17230bf798e9c6a324fa2bef0846684a6d4f7fa2abd21938963", size = 119438, upload-time = "2025-07-06T16:20:11.251Z" },
+]
+
+[[package]]
+name = "youtube-transcript-api"
+version = "1.2.2"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "defusedxml" },
+    { name = "requests" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/8f/f8/5e12d3d0c7001c3b3078697b9918241022bdb1ae12715e9debb00a83e16e/youtube_transcript_api-1.2.2.tar.gz", hash = "sha256:5f67cfaff3621d969778817a3d7b2172c16784855f45fcaed4f0529632e2fef4", size = 469634, upload-time = "2025-08-04T12:22:52.158Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/41/92/3d1a580f0efcad926f45876cf6cb92b2c260e84ae75dae5463bbf38f92e7/youtube_transcript_api-1.2.2-py3-none-any.whl", hash = "sha256:feca8c7f7c9d65188ef6377fc0e01cf466e6b68f1b3e648019646ab342f994d2", size = 485047, upload-time = "2025-08-04T12:22:50.836Z" },
 ]
 
 [[package]]

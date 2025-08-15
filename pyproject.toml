@@ -23,4 +23,5 @@ dependencies = [
     "streamlit>=1.48.0",
     "uvicorn[standard]>=0.35.0",
     "yfinance>=0.2.65",
+    "youtube-transcript-api>=1.2.2",
 ]
