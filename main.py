@@ -13,6 +13,12 @@ st.markdown(
     """
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&family=Quicksand:wght@400;700&display=swap');
+    
+    /* Force high contrast for all text elements */
+    * {
+        color: #ffffff !important;
+    }
+    
     /* Light theme styles with darker grey backgrounds */
     [data-testid="stExpander"] {
         background: linear-gradient(90deg, #4a5568 0%, #2d3748 100%) !important;
@@ -71,24 +77,51 @@ st.markdown(
         font-family: 'Montserrat', 'Segoe UI', 'Arial', sans-serif;
         border: 1px solid #6366f1;
     }
-    .stTabs [data-baseweb="tab"] {
+    
+    /* Enhanced Tab Styling - Multiple selectors to ensure visibility */
+    .stTabs [data-baseweb="tab"],
+    .stTabs [data-baseweb="tab"] > div,
+    .stTabs [data-baseweb="tab"] > div > div,
+    .stTabs [data-baseweb="tab"] button,
+    .stTabs [data-baseweb="tab"] span {
         background: #4a5568 !important;
         color: #ffffff !important;
-        font-weight: bold;
+        font-weight: bold !important;
         border-radius: 8px 8px 0 0;
-        font-family: 'Montserrat', 'Segoe UI', 'Arial', sans-serif;
-        font-size: 1.15em;
+        font-family: 'Montserrat', 'Segoe UI', 'Arial', sans-serif !important;
+        font-size: 1.15em !important;
         letter-spacing: 1px;
-        text-shadow: 0 1px 2px #2d3748;
-        transition: background 0.2s, color 0.2s;
-        border: 1px solid #6366f1;
+        text-shadow: 0 1px 2px #2d3748 !important;
+        transition: all 0.2s ease !important;
+        border: 1px solid #6366f1 !important;
+        text-decoration: none !important;
     }
-    .stTabs [aria-selected="true"] {
+    
+    /* Active tab styling */
+    .stTabs [aria-selected="true"],
+    .stTabs [aria-selected="true"] > div,
+    .stTabs [aria-selected="true"] > div > div,
+    .stTabs [aria-selected="true"] button,
+    .stTabs [aria-selected="true"] span {
         background: #6366f1 !important;
-        color: #fff !important;
-        font-size: 1.22em;
-        text-shadow: 0 2px 6px #4c51bf;
+        color: #ffffff !important;
+        font-size: 1.22em !important;
+        font-weight: 900 !important;
+        text-shadow: 0 2px 6px #4c51bf !important;
+        border: 2px solid #8b5cf6 !important;
     }
+    
+    /* Hover effects for tabs */
+    .stTabs [data-baseweb="tab"]:hover,
+    .stTabs [data-baseweb="tab"]:hover > div,
+    .stTabs [data-baseweb="tab"]:hover > div > div,
+    .stTabs [data-baseweb="tab"]:hover button,
+    .stTabs [data-baseweb="tab"]:hover span {
+        background: #5a67d8 !important;
+        color: #ffffff !important;
+        transform: translateY(-2px);
+    }
+    
     .stButton>button {
         background: #6366f1 !important;
         color: white !important;
@@ -177,6 +210,7 @@ st.markdown(
         border: 1px solid #6366f1;
         border-radius: 8px;
     }
+    
     /* Dark theme overrides - even darker greys */
     html[data-theme="dark"] [data-testid="stExpander"] {
         background: linear-gradient(90deg, #1a202c 0%, #2d3748 100%) !important;
@@ -203,16 +237,29 @@ st.markdown(
         background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%) !important;
         color: #e2e8f0 !important;
     }
-    html[data-theme="dark"] .stTabs [data-baseweb="tab"] {
+    
+    /* Dark theme tab fixes */
+    html[data-theme="dark"] .stTabs [data-baseweb="tab"],
+    html[data-theme="dark"] .stTabs [data-baseweb="tab"] > div,
+    html[data-theme="dark"] .stTabs [data-baseweb="tab"] > div > div,
+    html[data-theme="dark"] .stTabs [data-baseweb="tab"] button,
+    html[data-theme="dark"] .stTabs [data-baseweb="tab"] span {
         background: #2d3748 !important;
-        color: #e2e8f0 !important;
+        color: #ffffff !important;
+        font-weight: bold !important;
         text-shadow: none !important;
     }
-    html[data-theme="dark"] .stTabs [aria-selected="true"] {
+    html[data-theme="dark"] .stTabs [aria-selected="true"],
+    html[data-theme="dark"] .stTabs [aria-selected="true"] > div,
+    html[data-theme="dark"] .stTabs [aria-selected="true"] > div > div,
+    html[data-theme="dark"] .stTabs [aria-selected="true"] button,
+    html[data-theme="dark"] .stTabs [aria-selected="true"] span {
         background: #6366f1 !important;
-        color: #fff !important;
+        color: #ffffff !important;
+        font-weight: 900 !important;
         text-shadow: 0 2px 6px #4c51bf !important;
     }
+    
     html[data-theme="dark"] .stButton>button {
         background: #6366f1 !important;
         color: #fff !important;
@@ -244,6 +291,22 @@ st.markdown(
     html[data-theme="dark"] .catchy-tab-caption {
         color: #e2e8f0 !important;
         text-shadow: 0 1px 4px #6366f1 !important;
+    }
+    
+    /* Additional fallback for tab text visibility */
+    div[role="tablist"] button,
+    div[role="tablist"] span,
+    div[role="tablist"] div {
+        color: #ffffff !important;
+        font-weight: 700 !important;
+    }
+    
+    div[role="tablist"] button[aria-selected="true"],
+    div[role="tablist"] button[aria-selected="true"] span,
+    div[role="tablist"] button[aria-selected="true"] div {
+        color: #ffffff !important;
+        font-weight: 900 !important;
+        text-shadow: 0 1px 3px rgba(0,0,0,0.5) !important;
     }
     </style>
     """,
@@ -307,7 +370,7 @@ if "trigger_research" not in st.session_state:
     st.session_state.trigger_research = None
 
 # --- MAIN TABS ---
-tab1, tab2, tab3 = st.tabs([ "Chat Agent","Research Agent", "Youtube Analyser"])
+tab1, tab2, tab3 = st.tabs(["💬 Chat Agent", "🧠 Research Agent", "📺 Youtube Analyser"])
 
 # --- Chat Agent Tab ---
 with tab1:
@@ -387,17 +450,17 @@ with tab2:
             }
             with st.status("🚀 Executing research plan...", expanded=True) as status:
                 # PHASE 1: Researching
-                phase1_msg = "🧠 <b>Phase 1: Researching</b> - Finding and extracting relevant information from the web..."
+                phase1_msg = "🧠 **Phase 1: Researching** - Finding and extracting relevant information from the web..."
                 status.write(phase1_msg)
                 research_content = agent.searcher.run(user_input)
                 st.progress(33, text="Phase 1/3: Researching...")
                 # PHASE 2: Analyzing
-                phase2_msg = "🔬 <b>Phase 2: Analyzing</b> - Synthesizing and interpreting the research findings..."
+                phase2_msg = "🔬 **Phase 2: Analyzing** - Synthesizing and interpreting the research findings..."
                 status.write(phase2_msg)
                 analysis = agent.analyst.run(research_content.content)
                 st.progress(66, text="Phase 2/3: Analyzing...")
                 # PHASE 3: Writing Report
-                phase3_msg = "✏️ <b>Phase 3: Writing Report</b> - Producing a final, polished report..."
+                phase3_msg = "✏️ **Phase 3: Writing Report** - Producing a final, polished report..."
                 status.write(phase3_msg)
                 report_iterator = agent.writer.run(analysis.content, stream=True)
                 st.progress(100, text="Phase 3/3: Writing Report...")
