@@ -12,6 +12,7 @@ from agent.youtube_agent import  youtube_agent
 st.markdown(
     """
     <style>
+    @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&family=Quicksand:wght@400;700&display=swap');
     /* Custom Expander Styling */
     [data-testid="stExpander"] {
         background: linear-gradient(90deg, #e0e7ff 0%, #fdf2f8 100%) !important;
@@ -91,7 +92,7 @@ st.markdown(
     border: 2.5px solid #6366f1 !important;
     background: #fff !important;
     color: #22223b !important;
-    font-family: 'Montserrat', 'Segoe UI', 'Arial', sans-serif;
+    font-family: 'Nunito', 'Quicksand', 'Segoe UI', 'Arial', sans-serif;
     font-size: 1.18em !important;
     box-shadow: 0 2px 8px rgba(99,102,241,0.12);
     padding: 0.7em 1.2em !important;
