@@ -402,17 +402,17 @@ with tab2:
             }
             with st.status("🚀 Executing research plan...", expanded=True) as status:
                 # PHASE 1: Researching
-                phase1_msg = "🧠 <b>Phase 1: Researching</b> - Finding and extracting relevant information from the web..."
+                phase1_msg = "🧠 **Phase 1: Researching** - Finding and extracting relevant information from the web..."
                 status.write(phase1_msg)
                 research_content = agent.searcher.run(user_input)
                 st.progress(33, text="Phase 1/3: Researching...")
                 # PHASE 2: Analyzing
-                phase2_msg = "🔬 <b>Phase 2: Analyzing</b> - Synthesizing and interpreting the research findings..."
+                phase2_msg = "🔬 **Phase 2: Analyzing** - Synthesizing and interpreting the research findings..."
                 status.write(phase2_msg)
                 analysis = agent.analyst.run(research_content.content)
                 st.progress(66, text="Phase 2/3: Analyzing...")
                 # PHASE 3: Writing Report
-                phase3_msg = "✏️ <b>Phase 3: Writing Report</b> - Producing a final, polished report..."
+                phase3_msg = "✏️ **Phase 3: Writing Report** - Producing a final, polished report..."
                 status.write(phase3_msg)
                 report_iterator = agent.writer.run(analysis.content, stream=True)
                 st.progress(100, text="Phase 3/3: Writing Report...")
