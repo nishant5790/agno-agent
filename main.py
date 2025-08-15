@@ -37,7 +37,7 @@ st.markdown(
         box-shadow: 0 1px 4px rgba(99,102,241,0.08);
     }
     body, .stApp {
-        background: linear-gradient(135deg, #fbcfe8 0%, #e0e7ff 100%);
+        background: linear-gradient(135deg, #f8f4f6 0%, #e0e7ff 100%);
     }
     .main-header {
         background: #6366f1;
