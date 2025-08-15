@@ -13,13 +13,13 @@ agent = Agent(
 )
 
 
-class ChatAgent:
-    def __init__(self):
-        pass
+# class ChatAgent:
+#     def __init__(self):
+#         pass
 
-    def chat(self, message: str) -> str:
-        # Placeholder for chat logic, can be replaced with LLM integration
-        return agent.run(message).content
+#     def run(self,message:str) -> str:
+#         # Placeholder for chat logic, can be replaced with LLM integration
+#         return agent.run(message=message, stream=True)
 
 
 

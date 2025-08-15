@@ -6,7 +6,7 @@ from os import getenv
 
 import streamlit as st
 from agent.research_agent import DeepResearcherAgent
-from agent.chat_agent import ChatAgent
+from agent.chat_agent import agent
 from agent.youtube_agent import  youtube_agent
 
 
@@ -26,7 +26,7 @@ st.markdown(
         <div>
             <h1 style="margin-bottom: 0.2em;">Aion AI</h1>
             <div style="font-size:1.1rem; color: #666;">
-                Multi-agent AI system for research, chat, and latest AI news.
+                Multi-agent AI system for research, chat, and youtube analyser.
             </div>
         </div>
     </div>
@@ -44,7 +44,7 @@ with st.sidebar:
         **Aion AI** offers:
         1. **Research Agent**: Multi-stage AI workflow for research and reporting.
         2. **Chat Agent**: Normal chat with AI.
-        3. **Youtube Analyser**:  .
+        3. **Youtube Analyser**: For analysing youtube video .
         ---
         """
     )
@@ -86,11 +86,16 @@ with tab1:
     chat_input = st.chat_input("Type your message...")
     if chat_input:
         try:
-            chat_agent = ChatAgent()
-            chat_response = chat_agent.chat(chat_input)
+            chat_response = agent.run(chat_input,stream=True)
+            full_report = ""
+            report_container = st.empty()
+            for chunk in  chat_response:
+                if chunk.content:
+                    full_report += chunk.content
+                    report_container.markdown(full_report)
             chat_conversation = {
                 "question": chat_input,
-                "response": chat_response,
+                "response": full_report,
                 "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
             }
             st.session_state.chat_tab_history.append(chat_conversation)
