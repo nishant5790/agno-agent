@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deep Research Agent</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background: #f8fafc; }
+        .chat-container { max-width: 800px; margin: 2rem auto; }
+        .chat-bubble-user { background: #e3f2fd; border-radius: 1em 1em 0 1em; padding: 1em; margin-bottom: 1em; }
+        .chat-bubble-assistant { background: #fff3e0; border-radius: 1em 1em 1em 0; padding: 1em; margin-bottom: 1em; }
+        .timestamp { font-size: 0.9em; color: #888; }
+        .header-icon { font-size: 2.5rem; margin-right: 1rem; }
+        .export-btn { margin-right: 1em; }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3 sidebar">
+                <h4 class="mb-3">How It Works</h4>
+                <div class="mb-3">
+                    <div class="d-flex align-items-center mb-2">
+                        <span style="font-size:1.5em; margin-right:0.5em;">🔎</span>
+                        <strong>Searcher</strong>
+                    </div>
+                    <div class="text-muted ms-4 mb-2">Finds and extracts information from the web.</div>
+                    <div class="d-flex align-items-center mb-2">
+                        <span style="font-size:1.5em; margin-right:0.5em;">🔬</span>
+                        <strong>Analyst</strong>
+                    </div>
+                    <div class="text-muted ms-4 mb-2">Synthesizes and interprets the findings.</div>
+                    <div class="d-flex align-items-center mb-2">
+                        <span style="font-size:1.5em; margin-right:0.5em;">✍️</span>
+                        <strong>Writer</strong>
+                    </div>
+                    <div class="text-muted ms-4 mb-2">Produces a clear, well-structured report.</div>
+                </div>
+                <hr>
+                <div class="alert alert-info">Ask any research question below.<br>The agent will search, analyze, and write a detailed report for you.</div>
+                <footer class="text-center text-muted mt-4">
+                    Built by DexterLab | Powered by Agno & Flask
+                </footer>
+            </div>
+            <div class="col-md-9 chat-container">
+                <div class="d-flex align-items-center mb-3">
+                    <span class="header-icon">🔎</span>
+                    <div>
+                        <h1 class="mb-1">Deep Research Agent</h1>
+                        <div class="text-muted">Multi-stage AI workflow for comprehensive research, analysis, and reporting.</div>
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <a href="/new_chat" class="btn btn-outline-primary export-btn">🆕 New Chat</a>
+                    <a href="/export" class="btn btn-outline-success">📥 Export Chat</a>
+                </div>
+                {% if error %}
+                    <div class="alert alert-danger">{{ error }}</div>
+                {% endif %}
+                <form method="POST" class="mb-4">
+                    <div class="input-group">
+                        <input type="text" name="user_input" class="form-control" placeholder="Ask a research question..." required>
+                        <button class="btn btn-primary" type="submit">Send</button>
+                    </div>
+                </form>
+                {% if running %}
+                    <div class="stage-status">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="spinner-border text-primary me-2" role="status"></div>
+                            <span class="fw-bold">Working...</span>
+                        </div>
+                        {% if stage_status %}
+                            {% for stage in stage_status %}
+                                <div class="alert alert-secondary mb-2">{{ stage|safe }}</div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                {% endif %}
+                {% if chat_history %}
+                    <h4 class="mb-3">💬 Chat History</h4>
+                    {% for conversation in chat_history %}
+                        <div class="chat-bubble-user">
+                            <strong>User:</strong> {{ conversation.question }}
+                        </div>
+                        <div class="chat-bubble-assistant markdown-content">
+                            <strong>Assistant:</strong>
+                            <div>{{ conversation.response|safe }}</div>
+                            <div class="timestamp">Research completed at: {{ conversation.timestamp }}</div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="alert alert-info">No chat history yet. Start by asking a research question!</div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
