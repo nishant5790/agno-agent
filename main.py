@@ -9,309 +9,262 @@ from agent.research_agent import DeepResearcherAgent
 from agent.chat_agent import agent
 from agent.youtube_agent import  youtube_agent
 
-st.markdown(
-    """
-    <style>
-    @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&family=Quicksand:wght@400;700&display=swap');
-    
-    /* Force high contrast for all text elements */
-    * {
-        color: #ffffff !important;
-    }
-    
-    /* Light theme styles with darker grey backgrounds */
-    [data-testid="stExpander"] {
-        background: linear-gradient(90deg, #4a5568 0%, #2d3748 100%) !important;
-        color: #ffffff !important;
-        border-radius: 10px !important;
-        box-shadow: 0 2px 8px rgba(99,102,241,0.12);
-        margin-bottom: 1em;
-        border: 1.5px solid #6366f1;
-    }
-    [data-testid="stExpander"] .streamlit-expanderHeader {
-        color: #c084fc !important;
-        font-weight: bold;
-        font-size: 1.1em;
-        font-family: 'Montserrat', 'Segoe UI', 'Arial', sans-serif;
-    }
-    [data-testid="stChatMessage"] {
-        background: #4a5568 !important;
-        color: #ffffff !important;
-        border-radius: 8px !important;
-        border: 1.5px solid #6366f1;
-        margin-bottom: 0.5em;
-        box-shadow: 0 1px 4px rgba(99,102,241,0.12);
-    }
-    body, .stApp {
-        background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%) !important;
-        color: #ffffff !important;
-    }
-    .main .block-container {
-        background: transparent !important;
-        color: #ffffff !important;
-    }
-    /* General text visibility fixes */
-    .stMarkdown, .stMarkdown p, .stMarkdown h1, .stMarkdown h2, .stMarkdown h3, 
-    .stMarkdown h4, .stMarkdown h5, .stMarkdown h6, .stMarkdown li, .stMarkdown div {
-        color: #ffffff !important;
-    }
-    .stText, p, h1, h2, h3, h4, h5, h6, div, span {
-        color: #ffffff !important;
-    }
-    .main-header {
-        background: linear-gradient(135deg, #4a5568 0%, #2d3748 100%) !important;
-        color: #ffffff !important;
-        border-radius: 12px;
-        padding: 1.5em 2em;
-        margin-bottom: 1em;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.25);
-        font-family: 'Montserrat', 'Segoe UI', 'Arial', sans-serif;
-        border: 1px solid #6366f1;
-    }
-    .sidebar-content {
-        background: linear-gradient(135deg, #4a5568 0%, #2d3748 100%) !important;
-        color: #ffffff !important;
-        border-radius: 12px;
-        padding: 1em 1em;
-        margin-top: 1em;
-        font-family: 'Montserrat', 'Segoe UI', 'Arial', sans-serif;
-        border: 1px solid #6366f1;
-    }
-    
-    /* Enhanced Tab Styling - Multiple selectors to ensure visibility */
-    .stTabs [data-baseweb="tab"],
-    .stTabs [data-baseweb="tab"] > div,
-    .stTabs [data-baseweb="tab"] > div > div,
-    .stTabs [data-baseweb="tab"] button,
-    .stTabs [data-baseweb="tab"] span {
-        background: #4a5568 !important;
-        color: #ffffff !important;
-        font-weight: bold !important;
-        border-radius: 8px 8px 0 0;
-        font-family: 'Montserrat', 'Segoe UI', 'Arial', sans-serif !important;
-        font-size: 1.15em !important;
-        letter-spacing: 1px;
-        text-shadow: 0 1px 2px #2d3748 !important;
-        transition: all 0.2s ease !important;
-        border: 1px solid #6366f1 !important;
-        text-decoration: none !important;
-    }
-    
-    /* Active tab styling */
-    .stTabs [aria-selected="true"],
-    .stTabs [aria-selected="true"] > div,
-    .stTabs [aria-selected="true"] > div > div,
-    .stTabs [aria-selected="true"] button,
-    .stTabs [aria-selected="true"] span {
-        background: #6366f1 !important;
-        color: #ffffff !important;
-        font-size: 1.22em !important;
-        font-weight: 900 !important;
-        text-shadow: 0 2px 6px #4c51bf !important;
-        border: 2px solid #8b5cf6 !important;
-    }
-    
-    /* Hover effects for tabs */
-    .stTabs [data-baseweb="tab"]:hover,
-    .stTabs [data-baseweb="tab"]:hover > div,
-    .stTabs [data-baseweb="tab"]:hover > div > div,
-    .stTabs [data-baseweb="tab"]:hover button,
-    .stTabs [data-baseweb="tab"]:hover span {
-        background: #5a67d8 !important;
-        color: #ffffff !important;
-        transform: translateY(-2px);
-    }
-    
-    .stButton>button {
-        background: #6366f1 !important;
-        color: white !important;
-        border-radius: 8px;
-        font-weight: bold;
-        border: none;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-        transition: background 0.2s;
-        font-family: 'Montserrat', 'Segoe UI', 'Arial', sans-serif;
-    }
-    .stButton>button:hover {
-        background: #4f46e5 !important;
-    }
-    .stTextInput>div>input {
-        border-radius: 12px !important;
-        border: 2.5px solid #6366f1 !important;
-        background: #4a5568 !important;
-        color: #ffffff !important;
-        font-family: 'Nunito', 'Quicksand', 'Segoe UI', 'Arial', sans-serif;
-        font-size: 1.18em !important;
-        box-shadow: 0 2px 8px rgba(99,102,241,0.15);
-        padding: 0.7em 1.2em !important;
-    }
-    .stTextInput>div>input::placeholder {
-        color: #cbd5e0 !important;
-    }
-    .stChatInput>div>input {
-        border-radius: 10px !important;
-        border: 2px solid #6366f1 !important;
-        background: #4a5568 !important;
-        color: #ffffff !important;
-        font-family: 'Montserrat', 'Segoe UI', 'Arial', sans-serif;
-        font-size: 1.15em !important;
-        box-shadow: 0 2px 8px rgba(99,102,241,0.15);
-        padding: 0.5em 1em !important;
-    }
-    .stChatInput>div>input::placeholder {
-        color: #cbd5e0 !important;
-    }
-    .stCaption {
-        color: #c084fc !important;
-        font-family: 'Montserrat', 'Segoe UI', 'Arial', sans-serif;
-        font-size: 1.05em;
-    }
-    .stInfo {
-        background: #4a5568 !important;
-        color: #ffffff !important;
-        border-radius: 8px;
-        font-family: 'Montserrat', 'Segoe UI', 'Arial', sans-serif;
-        border: 1px solid #6366f1;
-    }
-    .catchy-tab-header {
-        font-family: 'Montserrat', 'Segoe UI', 'Arial', sans-serif;
-        font-size: 2em;
-        font-weight: 700;
-        letter-spacing: 2px;
-        color: #c084fc !important;
-        text-shadow: 0 2px 8px #6366f1;
-        margin-bottom: 0.2em;
-    }
-    .catchy-tab-caption {
-        font-family: 'Montserrat', 'Segoe UI', 'Arial', sans-serif;
-        font-size: 1.15em;
-        color: #ffffff !important;
-        margin-bottom: 0.5em;
-        text-shadow: 0 1px 4px #2d3748;
-    }
-    .stSidebar {
-        background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%) !important;
-    }
-    .stSidebar .stMarkdown {
-        color: #e2e8f0 !important;
-    }
-    .stProgress .st-bo {
-        background-color: #4a5568 !important;
-    }
-    .stProgress .st-bp {
-        background-color: #6366f1 !important;
-    }
-    .stSpinner {
-        color: #6366f1 !important;
-    }
-    [data-testid="stStatusWidget"] {
-        background: #4a5568 !important;
-        color: #e2e8f0 !important;
-        border: 1px solid #6366f1;
-        border-radius: 8px;
-    }
-    
-    /* Dark theme overrides - even darker greys */
-    html[data-theme="dark"] [data-testid="stExpander"] {
-        background: linear-gradient(90deg, #1a202c 0%, #2d3748 100%) !important;
-        color: #e2e8f0 !important;
-        border: 1.5px solid #6366f1 !important;
-    }
-    html[data-theme="dark"] [data-testid="stExpander"] .streamlit-expanderHeader {
-        color: #a78bfa !important;
-    }
-    html[data-theme="dark"] [data-testid="stChatMessage"] {
-        background: #1a202c !important;
-        color: #e2e8f0 !important;
-        border: 1.5px solid #6366f1 !important;
-    }
-    html[data-theme="dark"] body, html[data-theme="dark"] .stApp {
-        background: linear-gradient(135deg, #171923 0%, #1a202c 100%) !important;
-        color: #e2e8f0 !important;
-    }
-    html[data-theme="dark"] .main-header {
-        background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%) !important;
-        color: #e2e8f0 !important;
-    }
-    html[data-theme="dark"] .sidebar-content {
-        background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%) !important;
-        color: #e2e8f0 !important;
-    }
-    
-    /* Dark theme tab fixes */
-    html[data-theme="dark"] .stTabs [data-baseweb="tab"],
-    html[data-theme="dark"] .stTabs [data-baseweb="tab"] > div,
-    html[data-theme="dark"] .stTabs [data-baseweb="tab"] > div > div,
-    html[data-theme="dark"] .stTabs [data-baseweb="tab"] button,
-    html[data-theme="dark"] .stTabs [data-baseweb="tab"] span {
-        background: #2d3748 !important;
-        color: #ffffff !important;
-        font-weight: bold !important;
-        text-shadow: none !important;
-    }
-    html[data-theme="dark"] .stTabs [aria-selected="true"],
-    html[data-theme="dark"] .stTabs [aria-selected="true"] > div,
-    html[data-theme="dark"] .stTabs [aria-selected="true"] > div > div,
-    html[data-theme="dark"] .stTabs [aria-selected="true"] button,
-    html[data-theme="dark"] .stTabs [aria-selected="true"] span {
-        background: #6366f1 !important;
-        color: #ffffff !important;
-        font-weight: 900 !important;
-        text-shadow: 0 2px 6px #4c51bf !important;
-    }
-    
-    html[data-theme="dark"] .stButton>button {
-        background: #6366f1 !important;
-        color: #fff !important;
-    }
-    html[data-theme="dark"] .stButton>button:hover {
-        background: #4f46e5 !important;
-    }
-    html[data-theme="dark"] .stTextInput>div>input {
-        background: #2d3748 !important;
-        color: #e2e8f0 !important;
-        border: 2.5px solid #6366f1 !important;
-    }
-    html[data-theme="dark"] .stChatInput>div>input {
-        background: #2d3748 !important;
-        color: #e2e8f0 !important;
-        border: 2px solid #6366f1 !important;
-    }
-    html[data-theme="dark"] .stCaption {
-        color: #a78bfa !important;
-    }
-    html[data-theme="dark"] .stInfo {
-        background: #2d3748 !important;
-        color: #e2e8f0 !important;
-    }
-    html[data-theme="dark"] .catchy-tab-header {
-        color: #a78bfa !important;
-        text-shadow: 0 2px 8px #6366f1 !important;
-    }
-    html[data-theme="dark"] .catchy-tab-caption {
-        color: #e2e8f0 !important;
-        text-shadow: 0 1px 4px #6366f1 !important;
-    }
-    
-    /* Additional fallback for tab text visibility */
-    div[role="tablist"] button,
-    div[role="tablist"] span,
-    div[role="tablist"] div {
-        color: #ffffff !important;
-        font-weight: 700 !important;
-    }
-    
-    div[role="tablist"] button[aria-selected="true"],
-    div[role="tablist"] button[aria-selected="true"] span,
-    div[role="tablist"] button[aria-selected="true"] div {
-        color: #ffffff !important;
-        font-weight: 900 !important;
-        text-shadow: 0 1px 3px rgba(0,0,0,0.5) !important;
-    }
-    </style>
-    """,
-    unsafe_allow_html=True,
-)
+# st.markdown(
+#     """
+#     <style>
+#     @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&family=Quicksand:wght@400;700&display=swap');
+#     /* Light theme styles with darker grey backgrounds */
+#     [data-testid="stExpander"] {
+#         background: linear-gradient(90deg, #6b7280 0%, #4a5568 100%) !important;
+#         color: #ffffff !important;
+#         border-radius: 10px !important;
+#         box-shadow: 0 2px 8px rgba(99,102,241,0.12);
+#         margin-bottom: 1em;
+#         border: 1.5px solid #6366f1;
+#     }
+#     [data-testid="stExpander"] .streamlit-expanderHeader {
+#         color: #c084fc !important;
+#         font-weight: bold;
+#         font-size: 1.1em;
+#         font-family: 'Montserrat', 'Segoe UI', 'Arial', sans-serif;
+#     }
+#     [data-testid="stChatMessage"] {
+#         background: linear-gradient(135deg, #e0f7fa 60%, #ffe4ec 100%) !important;
+#         color: #555 !important;
+#         border-radius: 8px !important;
+#         border: 1.5px solid #d16ba5;
+#         margin-bottom: 0.5em;
+#         box-shadow: 0 1px 4px rgba(209,107,165,0.10);
+#     }
+#     body, .stApp {
+#         background: linear-gradient(135deg, #e0f7fa 60%, #ffe4ec 100%) !important;
+#         color: #222 !important;
+#     }
+#     .main .block-container {
+#         background: transparent !important;
+#         color: #222 !important;
+#     }
+#     /* General text visibility fixes */
+#     .stMarkdown, .stMarkdown p, .stMarkdown h1, .stMarkdown h2, .stMarkdown h3, 
+#     .stMarkdown h4, .stMarkdown h5, .stMarkdown h6, .stMarkdown li, .stMarkdown div {
+#         color: #222 !important;
+#     }
+#     .stText, p, h1, h2, h3, h4, h5, h6, div, span {
+#         color: #222 !important;
+#     }
+#     .main-header {
+#         background: linear-gradient(135deg, #e0f7fa 60%, #ffe4ec 100%) !important;
+#         color: #222 !important;
+#         border-radius: 12px;
+#         padding: 1.5em 2em;
+#         margin-bottom: 1em;
+#         box-shadow: 0 4px 12px rgba(0,0,0,0.10);
+#         font-family: 'Montserrat', 'Segoe UI', 'Arial', sans-serif;
+#         border: 1px solid #e0f7fa;
+#     }
+#     .sidebar-content {
+#         background: linear-gradient(135deg, #e0f7fa 60%, #ffe4ec 100%) !important;
+#         color: #222 !important;
+#         border-radius: 12px;
+#         padding: 1em 1em;
+#         margin-top: 1em;
+#         font-family: 'Montserrat', 'Segoe UI', 'Arial', sans-serif;
+#         border: 1px solid #e0f7fa;
+#     }
+#     .stTabs [data-baseweb="tab"] {
+#         background: #6b7280 !important;
+#         color: #ffffff !important;
+#         font-weight: bold;
+#         border-radius: 8px 8px 0 0;
+#         font-family: 'Montserrat', 'Segoe UI', 'Arial', sans-serif;
+#         font-size: 1.15em;
+#         letter-spacing: 1px;
+#         text-shadow: 0 1px 2px #4a5568;
+#         transition: background 0.2s, color 0.2s;
+#         border: 1px solid #6366f1;
+#     }
+#     .stTabs [aria-selected="true"] {
+#         background: #6366f1 !important;
+#         color: #fff !important;
+#         font-size: 1.22em;
+#         text-shadow: 0 2px 6px #4c51bf;
+#     }
+#     .stButton>button {
+#         background: #6366f1 !important;
+#         color: white !important;
+#         border-radius: 8px;
+#         font-weight: bold;
+#         border: none;
+#         box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+#         transition: background 0.2s;
+#         font-family: 'Montserrat', 'Segoe UI', 'Arial', sans-serif;
+#     }
+#     .stButton>button:hover {
+#         background: #4f46e5 !important;
+#     }
+#     .stTextInput>div>input {
+#         border-radius: 12px !important;
+#         border: 2.5px solid #6366f1 !important;
+#         background: #6b7280 !important;
+#         color: #ffffff !important;
+#         font-family: 'Nunito', 'Quicksand', 'Segoe UI', 'Arial', sans-serif;
+#         font-size: 1.18em !important;
+#         box-shadow: 0 2px 8px rgba(99,102,241,0.15);
+#         padding: 0.7em 1.2em !important;
+#     }
+#     .stTextInput>div>input::placeholder {
+#         color: #d1d5db !important;
+#     }
+#     .stChatInput>div>input {
+#         border-radius: 10px !important;
+#         border: 2px solid #6366f1 !important;
+#         background: #6b7280 !important;
+#         color: #ffffff !important;
+#         font-family: 'Montserrat', 'Segoe UI', 'Arial', sans-serif;
+#         font-size: 1.15em !important;
+#         box-shadow: 0 2px 8px rgba(99,102,241,0.15);
+#         padding: 0.5em 1em !important;
+#     }
+#     .stChatInput>div>input::placeholder {
+#         color: #d1d5db !important;
+#     }
+#     .stCaption {
+#         color: #c084fc !important;
+#         font-family: 'Montserrat', 'Segoe UI', 'Arial', sans-serif;
+#         font-size: 1.05em;
+#     }
+#     .stInfo {
+#         background: #6b7280 !important;
+#         color: #ffffff !important;
+#         border-radius: 8px;
+#         font-family: 'Montserrat', 'Segoe UI', 'Arial', sans-serif;
+#         border: 1px solid #6366f1;
+#     }
+#     .catchy-tab-header {
+#         font-family: 'Montserrat', 'Segoe UI', 'Arial', sans-serif;
+#         font-size: 2em;
+#         font-weight: 700;
+#         letter-spacing: 2px;
+#         color: #6366f1 !important;
+#         text-shadow: 0 2px 8px #e0f7fa;
+#         margin-bottom: 0.2em;
+#     }
+#     .catchy-tab-caption {
+#         font-family: 'Montserrat', 'Segoe UI', 'Arial', sans-serif;
+#         font-size: 1.15em;
+#         color: #222 !important;
+#         margin-bottom: 0.5em;
+#         text-shadow: 0 1px 4px #e0f7fa;
+#     }
+#     .stSidebar {
+#         background: linear-gradient(135deg, #e0f7fa 60%, #ffe4ec 100%) !important;
+#     }
+#     .stSidebar .stMarkdown {
+#         color: #222 !important;
+#     }
+#     .stSidebar .stMarkdown p, .stSidebar .stMarkdown h1, .stSidebar .stMarkdown h2, 
+#     .stSidebar .stMarkdown h3, .stSidebar .stMarkdown li, .stSidebar .stMarkdown div {
+#         color: #222 !important;
+#     }
+#     .stProgress .st-bo {
+#         background-color: #4a5568 !important;
+#     }
+#     .stProgress .st-bp {
+#         background-color: #6366f1 !important;
+#     }
+#     .stSpinner {
+#         color: #6366f1 !important;
+#     }
+#     [data-testid="stStatusWidget"] {
+#         background: #6b7280 !important;
+#         color: #ffffff !important;
+#         border: 1px solid #6366f1;
+#         border-radius: 8px;
+#     }
+#     /* Additional text visibility fixes */
+#     .stSubheader, .stSubheader p {
+#         color: #222 !important;
+#     }
+#     .stWrite, .stWrite p, .stWrite div {
+#         color: #222 !important;
+#     }
+#     /* Chat message content */
+#     [data-testid="stChatMessage"] p, [data-testid="stChatMessage"] div, 
+#     [data-testid="stChatMessage"] span {
+#         color: #222 !important;
+#     }
+#     /* Dark theme overrides - even darker greys */
+#     html[data-theme="dark"] [data-testid="stExpander"] {
+#         background: linear-gradient(90deg, #374151 0%, #4a5568 100%) !important;
+#         color: #ffffff !important;
+#         border: 1.5px solid #6366f1 !important;
+#     }
+#     html[data-theme="dark"] [data-testid="stExpander"] .streamlit-expanderHeader {
+#         color: #c084fc !important;
+#     }
+#     html[data-theme="dark"] [data-testid="stChatMessage"] {
+#         background: #374151 !important;
+#         color: #ffffff !important;
+#         border: 1.5px solid #6366f1 !important;
+#     }
+#     html[data-theme="dark"] body, html[data-theme="dark"] .stApp {
+#         background: linear-gradient(135deg, #374151 0%, #4a5568 100%) !important;
+#         color: #ffffff !important;
+#     }
+#     html[data-theme="dark"] .main-header {
+#         background: linear-gradient(135deg, #4a5568 0%, #374151 100%) !important;
+#         color: #ffffff !important;
+#     }
+#     html[data-theme="dark"] .sidebar-content {
+#         background: linear-gradient(135deg, #4a5568 0%, #374151 100%) !important;
+#         color: #ffffff !important;
+#     }
+#     html[data-theme="dark"] .stTabs [data-baseweb="tab"] {
+#         background: #4a5568 !important;
+#         color: #ffffff !important;
+#         text-shadow: none !important;
+#     }
+#     html[data-theme="dark"] .stTabs [aria-selected="true"] {
+#         background: #6366f1 !important;
+#         color: #fff !important;
+#         text-shadow: 0 2px 6px #4c51bf !important;
+#     }
+#     html[data-theme="dark"] .stButton>button {
+#         background: #6366f1 !important;
+#         color: #fff !important;
+#     }
+#     html[data-theme="dark"] .stButton>button:hover {
+#         background: #4f46e5 !important;
+#     }
+#     html[data-theme="dark"] .stTextInput>div>input {
+#         background: #4a5568 !important;
+#         color: #ffffff !important;
+#         border: 2.5px solid #6366f1 !important;
+#     }
+#     html[data-theme="dark"] .stChatInput>div>input {
+#         background: #4a5568 !important;
+#         color: #ffffff !important;
+#         border: 2px solid #6366f1 !important;
+#     }
+#     html[data-theme="dark"] .stCaption {
+#         color: #c084fc !important;
+#     }
+#     html[data-theme="dark"] .stInfo {
+#         background: #4a5568 !important;
+#         color: #ffffff !important;
+#     }
+#     html[data-theme="dark"] .catchy-tab-header {
+#         color: #c084fc !important;
+#         text-shadow: 0 2px 8px #6366f1 !important;
+#     }
+#     html[data-theme="dark"] .catchy-tab-caption {
+#         color: #ffffff !important;
+#         text-shadow: 0 1px 4px #6366f1 !important;
+#     }
+#     </style>
+#     """,
+#     unsafe_allow_html=True,
+# )
 
 st.set_page_config(
     page_title="Aion AI",
@@ -324,14 +277,15 @@ st.set_page_config(
 # --- HEADER ---
 st.markdown(
     """
-    <div class="main-header">
-        <div style="display: flex; align-items: center; gap: 18px;">
-            <span style="font-size:3rem;">🤖</span>
+    <div class="main-header" style="background: linear-gradient(90deg, #6366f1 0%, #c084fc 100%); color: #fff; border-radius: 18px; padding: 2.2em 2.5em 2em 2.5em; margin-bottom: 1.2em; box-shadow: 0 6px 24px rgba(99,102,241,0.18);">
+        <div style="display: flex; align-items: center; gap: 32px;">
+            <div style="background: #fff; border-radius: 50%; width: 80px; height: 80px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 12px rgba(99,102,241,0.12);">
+                <span style="font-size:3.5rem; color:#6366f1;">🤖</span>
+            </div>
             <div>
-                <h1 style="margin-bottom: 0.2em;">Aion AI</h1>
-                <div style="font-size:1.2rem; color: #e2e8f0;">
-                    <b>Multi-agent AI system</b> for research, chat, and YouTube analysis.
-                </div>
+                <h1 style="margin-bottom: 0.15em; font-size: 2.8em; font-weight: 800; letter-spacing: 2px; text-shadow: 0 2px 12px #c084fc; font-family: 'Montserrat', 'Segoe UI', 'Arial', sans-serif;">Aion AI</h1>
+                <div style="font-size:1.35rem; font-weight: 500; color: #facc15; margin-bottom: 0.3em; text-shadow: 0 1px 6px #6366f1;">Empowering You with Multi-Agent Intelligence</div>
+                <div style="font-size:1.15rem; color: #fff; font-weight: 400;">Unlock research, chat, and YouTube insights <span style='color:#06b6d4;font-weight:600;'>— all in one place.</span></div>
             </div>
         </div>
     </div>
@@ -370,7 +324,7 @@ if "trigger_research" not in st.session_state:
     st.session_state.trigger_research = None
 
 # --- MAIN TABS ---
-tab1, tab2, tab3 = st.tabs(["💬 Chat Agent", "🧠 Research Agent", "📺 Youtube Analyser"])
+tab1, tab2, tab3 = st.tabs([ "Chat Agent","Research Agent", "Youtube Analyser"])
 
 # --- Chat Agent Tab ---
 with tab1:
@@ -381,10 +335,8 @@ with tab1:
     if st.session_state.chat_tab_history:
         st.subheader("Chat History")
         clear_chat = st.button("Clear Chat History", key="clear_chat_tab")
-
         if clear_chat:
             st.session_state.chat_tab_history = []
-            agent = agent
             st.rerun()
         for i, conversation in enumerate(st.session_state.chat_tab_history):
             with st.container():
@@ -398,7 +350,7 @@ with tab1:
     chat_input = st.chat_input("Type your message...")
     if chat_input:
         try:
-            chat_response = agent.run(chat_input,stream=True,)
+            chat_response = agent.run(chat_input,stream=True)
             full_report = ""
             report_container = st.empty()
             with st.spinner("💡 AI is thinking..."):
@@ -450,17 +402,17 @@ with tab2:
             }
             with st.status("🚀 Executing research plan...", expanded=True) as status:
                 # PHASE 1: Researching
-                phase1_msg = "🧠 **Phase 1: Researching** - Finding and extracting relevant information from the web..."
+                phase1_msg = "🧠 <b>Phase 1: Researching</b> - Finding and extracting relevant information from the web..."
                 status.write(phase1_msg)
                 research_content = agent.searcher.run(user_input)
                 st.progress(33, text="Phase 1/3: Researching...")
                 # PHASE 2: Analyzing
-                phase2_msg = "🔬 **Phase 2: Analyzing** - Synthesizing and interpreting the research findings..."
+                phase2_msg = "🔬 <b>Phase 2: Analyzing</b> - Synthesizing and interpreting the research findings..."
                 status.write(phase2_msg)
                 analysis = agent.analyst.run(research_content.content)
                 st.progress(66, text="Phase 2/3: Analyzing...")
                 # PHASE 3: Writing Report
-                phase3_msg = "✏️ **Phase 3: Writing Report** - Producing a final, polished report..."
+                phase3_msg = "✏️ <b>Phase 3: Writing Report</b> - Producing a final, polished report..."
                 status.write(phase3_msg)
                 report_iterator = agent.writer.run(analysis.content, stream=True)
                 st.progress(100, text="Phase 3/3: Writing Report...")
