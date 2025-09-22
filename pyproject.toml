@@ -12,6 +12,7 @@ dependencies = [
     "duckduckgo-search>=8.1.1",
     "fastapi>=0.116.1",
     "flask>=3.1.1",
+    "flask-cors>=6.0.1",
     "google-genai>=1.29.0",
     "lxml-html-clean>=0.4.2",
     "markdown>=3.8.2",

@@ -13,4 +13,4 @@ agent = Agent(
     show_tool_calls=True,
     markdown=True,
 )
-agent.run("Find an article explaining MCP and open it in the web browser.")
+# agent.run("Find an article explaining MCP and open it in the web browser.")

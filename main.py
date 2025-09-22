@@ -8,6 +8,7 @@ import streamlit as st
 from agent.research_agent import DeepResearcherAgent
 from agent.chat_agent import agent
 from agent.youtube_agent import  youtube_agent
+from agent.study_partner import study_partner
 
 # st.markdown(
 #     """
@@ -305,6 +306,7 @@ with st.sidebar:
         <li>🧠 <b>Research Agent</b>: Multi-stage AI workflow for research and reporting.</li>
         <li>💬 <b>Chat Agent</b>: Chat with AI in real time.</li>
         <li>📺 <b>YouTube Analyser</b>: Analyze YouTube videos with AI.</li>
+        <li>📚 <b>Study Partner</b>: Personalized learning resources and study plans.</li>
         </ul>
         """,
         unsafe_allow_html=True,
@@ -324,7 +326,7 @@ if "trigger_research" not in st.session_state:
     st.session_state.trigger_research = None
 
 # --- MAIN TABS ---
-tab1, tab2, tab3 = st.tabs([ "Chat Agent","Research Agent", "Youtube Analyser"])
+tab1, tab2, tab3, tab4 = st.tabs(["Chat Agent", "Research Agent", "Youtube Analyser", "Study Planner"])
 
 # --- Chat Agent Tab ---
 with tab1:
@@ -455,3 +457,74 @@ with tab3:
                         report_container.markdown(full_report)
         except Exception as e:
             st.error(f"An error occurred: {str(e)}")
+
+# --- Study Planner Tab ---
+# with tab4:
+#     st.markdown('<div class="catchy-tab-header">📅 Study Planner</div>', unsafe_allow_html=True)
+#     st.markdown('<div class="catchy-tab-caption">Plan your study schedule and get AI-powered suggestions.</div>', unsafe_allow_html=True)
+#     st.markdown("<hr style='border:1px solid #6366f1;'>", unsafe_allow_html=True)
+    
+#     st.markdown("#### Enter your study goals or topics:")
+#     study_goal = st.text_area("What do you want to study or achieve?", key="study_goal")
+#     st.markdown("#### Select your available study days:")
+#     days = st.multiselect("Choose days", ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"], key="study_days")
+#     st.markdown("#### How many hours per day can you study?")
+#     hours = st.slider("Hours per day", 1, 12, 2, key="study_hours")
+    
+#     if st.button("Generate Study Plan"):
+#         if study_goal and days and hours:
+#             with st.spinner("📝 Creating your study plan..."):
+#                 # You can use your study_partner agent here if it supports planning
+#                 try:
+#                     plan_prompt = f"Create a study plan for: {study_goal}. Days: {', '.join(days)}. Hours per day: {hours}."
+#                     plan_response = study_partner.run(plan_prompt, stream=True)
+#                     full_plan = ""
+#                     plan_container = st.empty()
+#                     for chunk in plan_response:
+#                         if chunk.event == "RunResponseContent":
+#                             full_plan += chunk.content
+#                             plan_container.write(full_plan)
+#                 except Exception as e:
+#                     st.error(f"An error occurred: {str(e)}")
+#         else:
+#             st.warning("Please fill in all fields to generate a study plan.")
+# --- Study Planner Tab ---
+with tab4:
+    st.markdown('<div class="catchy-tab-header">📅 Study Planner</div>', unsafe_allow_html=True)
+    st.markdown('<div class="catchy-tab-caption">Plan your study schedule and get AI-powered suggestions.</div>', unsafe_allow_html=True)
+    st.markdown("<hr style='border:1px solid #6366f1;'>", unsafe_allow_html=True)
+    
+    st.markdown("#### Enter your study goals or topics:")
+    study_goal = st.text_area("What do you want to study or achieve? eg : I want to learn about deep learning in ML", key="study_goal")
+    st.markdown("#### Select your available study days:")
+    days = st.multiselect("Choose days", ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"], key="study_days")
+    st.markdown("#### How many hours per day can you study?")
+    hours = st.slider("Hours per day", 1, 12, 2, key="study_hours")
+    st.markdown("#### Plan duration:")
+    duration_type = st.radio("Do you want to plan for weeks or months?", ["Weeks", "Months"], key="duration_type", horizontal=True)
+    if duration_type == "Weeks":
+        duration_value = st.number_input("Number of weeks", min_value=1, max_value=52, value=4, key="duration_value")
+    else:
+        duration_value = st.number_input("Number of months", min_value=1, max_value=12, value=1, key="duration_value")
+    
+    if st.button("Generate Study Plan"):
+        if study_goal and days and hours and duration_value:
+            with st.spinner("📝 Creating your study plan Hold Tight..."):
+                try:
+                    plan_prompt = (
+                        f"Create a study plan for: {study_goal}. "
+                        f"Days: {', '.join(days)}. Hours per day: {hours}. "
+                        f"Duration: {duration_value} {duration_type.lower()}."
+                    )
+                    plan_response = study_partner.run(plan_prompt, stream=True)
+                    full_plan = ""
+                    plan_container = st.empty()
+                    for chunk in plan_response:
+                        if chunk.event == "RunResponseContent":
+                            full_plan += chunk.content
+                            plan_container.write(full_plan)
+
+                except Exception as e:
+                    st.error(f"An error occurred: {str(e)}")
+        else:
+            st.warning("Please fill in all fields to generate a study plan.")
